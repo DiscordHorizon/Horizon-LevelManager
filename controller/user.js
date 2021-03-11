@@ -19,31 +19,31 @@ async function userVerify(userId) {
     return (user = await userModel.findOne({ id: userId }));
 }
 
-async function updateLevel(id, roles) {
+async function updateLevel(user, roles) {
     const exp = await levelsModel.findOne({ name: "Exp Table" });
-    const user = await userModel.findOne({ id: id });
+    const userReq = await userModel.findOne({ id: user.id });
     var userLevel = 1;
     exp.expTable.forEach((lvl) => {
-        if (user.accumulatedTime >= lvl.exp) {
+        if (userReq.accumulatedTime >= lvl.exp) {
             userLevel = lvl.level;
         }
     });
-    await user.updateOne({ level: userLevel });
-    setLevel(id, roles);
+    await userReq.updateOne({ level: userLevel });
+    setLevel(user, roles);
 }
 
 module.exports = {
-    async userConnection(state, roles) {
-        const user = await userVerify(state.id);
+    async userConnection(channelID, user, roles) {
+        const userReq = await userVerify(user.id);
 
-        if (state.channelID) {
-            await user.updateOne({ lastConnection: Date.now() });
+        if (channelID) {
+            await userReq.updateOne({ lastConnection: Date.now() });
         } else {
-            time = Date.now() - user.lastConnection;
-            await user.updateOne({
-                accumulatedTime: user.accumulatedTime + time,
+            time = Date.now() - userReq.lastConnection;
+            await userReq.updateOne({
+                accumulatedTime: userReq.accumulatedTime + time,
             });
-            updateLevel(state.id, roles);
+            updateLevel(user, roles);
         }
     },
 };
