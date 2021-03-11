@@ -7,7 +7,7 @@ try {
 
 exports.discord = config ? config.discord : process.env.DISCORD;
 exports.mongoUri = config ? config.mongoUri : process.env.MONGO_URI;
-exports.roles = {
+exports.rolesConfig = {
     ids: {
         heaven: config ? config.roles.heaven : process.env.HEAVEN,
         clouds: config ? config.roles.clouds : process.env.CLOUDS,
