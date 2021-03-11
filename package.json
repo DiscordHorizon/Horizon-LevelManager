@@ -20,6 +20,6 @@
   "homepage": "https://github.com/MatheusIshiyama/Horizon-LevelManager#readme",
   "dependencies": {
     "discord.js": "^12.5.1",
-    "mongoose": "^5.11.20"
+    "mongoose": "^5.11.15"
   }
 }
