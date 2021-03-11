@@ -19,7 +19,7 @@ module.exports = {
         user.roles.add(level);
 
         //* update horizon role
-        config.rolesArray.forEach((roleConfig) => {
+        rolesConfig.array.forEach((roleConfig) => {
             user._roles.forEach((roleId) => {
                 const role = roles.find((roles) => roles.id === roleId);
                 if (role.id === roleConfig) {
